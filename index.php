@@ -13,18 +13,24 @@
 
 <?php
 
+
+//je recupère le header
 require 'inc/header.php' ?>
 
 <div class="content">
 <img src="img/bg3.png">
 <div id="question">
 
-    <?php 
+    <?php
+
+
     $user = (array)$_SESSION['auth'];
-    $iduser = $user["id"];
+    $iduser = $user["id"]; //je recup l'id de l'user connecté
     require 'inc/functions.php';
+
+
     
-    function avancement($iduser){
+    function avancement($iduser){ //fonction pour récupérer la derniere question faite par l'user connecté
 
         require 'inc/db.php';
 
@@ -34,10 +40,15 @@ require 'inc/header.php' ?>
 
         $avancement = (array)$row[0];
         $avancement = $avancement["avancement"];
-        afficheQuestion($avancement, $iduser);
+
+        //je stocke la variable d'avancement (id de la question où s'est arreté l'user)
+        afficheQuestion($avancement, $iduser); //je lance la fonction pour afficher la question et les réponses
+
+        //vu que la variable d'avancement va etre implémenté à chaque fin de réponse elle va afficher la question qui
+        //sera la suivante dans la bdd.
 
     }
-    avancement($iduser);
+    avancement($iduser); //j'execute la fonction avancement
 
     ?>
 
@@ -45,15 +56,12 @@ require 'inc/header.php' ?>
 </div>
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="js/quiz.js"></script>
 <script>
-    function vider(){
-        window.alert("zdaazd");
+    function vider(){    //fonction pour vider la div dans laquelle seront afficher les quiz (un à un)
         $("#question").html("");
         document.getElementById('question').innerHTML= "";
     }
 </script>
-<script src="js/quiz1.js"></script>
 
 
 
